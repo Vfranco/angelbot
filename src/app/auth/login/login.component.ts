@@ -1,6 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { Component, Inject, OnInit } from "@angular/core";
+import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
 import { AuthenticationFormFields } from '../../core/constants/authentication.fields';
+import { IAuthRepository } from '../../domain/auth/auth.repository';
+import { Router } from '@angular/router';
+import { Status } from '../../core/constants/status.enum';
 
 @Component({
   selector: 'auth-login',
@@ -11,9 +14,11 @@ import { AuthenticationFormFields } from '../../core/constants/authentication.fi
   }
 })
 export class AuthLoginComponent implements OnInit {
+
   formGroup: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, @Inject('authRepository') private authService: IAuthRepository,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -23,10 +28,17 @@ export class AuthLoginComponent implements OnInit {
     this.formGroup = this.formBuilder.group(AuthenticationFormFields);
   }
 
-  authentication() {
-    console.log(this.formGroup.value);
+  login(): void {
+    this.authService.addUser(this.formGroup.value)
+      .subscribe(response => {
+        console.log(response);
+      })
   }
 
-  get usernameField() { return this.formGroup.get('username'); }
-  get passwordField() { return this.formGroup.get('password'); }
+  homePage(): void {
+    this.router.navigateByUrl('/admin/home');
+  }
+
+  get usernameField(): AbstractControl { return this.formGroup.get('username'); }
+  get passwordField(): AbstractControl { return this.formGroup.get('password'); }
 }

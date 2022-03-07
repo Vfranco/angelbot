@@ -7,7 +7,7 @@
             <div class="ml-2 text-primary text-center main-title">
               <h1 class="h4 mb-4 text-color-white">AngelBot</h1>
             </div>
-            <form class="user" [formGroup]="formGroup" (ngSubmit)="authentication()">
+            <form class="user" [formGroup]="formGroup" (ngSubmit)="login()">
               <div class="form-group">
                 <label class="ml-2"><span class="fa fa-user mx-2 text-primary"></span>Usuario</label>
                 <input type="text" formControlName="username" class="form-control form-control-user"
@@ -15,6 +15,9 @@
                 <div class="form-text text-danger ml-2" *ngIf="usernameField.invalid && usernameField.touched">
                   <div *ngIf="usernameField.hasError('required')">
                     Por favor diligenciar su username
+                  </div>
+                  <div *ngIf="usernameField.hasError('minlength')">
+                    Su usuario debe tener mínimo 4 caracteres
                   </div>
                 </div>
               </div>
@@ -37,7 +40,8 @@
                   <label class="custom-control-label" for="customCheck">Recordar datos de sesión</label>
                 </div>
               </div>
-              <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary btn-user btn-block">
+              <button type="submit" (click)="homePage()" [disabled]="formGroup.invalid"
+                class="btn btn-primary btn-user btn-block">
                 Ingresar
               </button>
             </form>
