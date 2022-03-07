@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup} from "@angular/forms";
+import { FormBuilder, FormGroup } from "@angular/forms";
 import { AuthenticationFormFields } from '../../core/constants/authentication.fields';
-import { IUser } from '../../domain/auth/auth.dto';
 
 @Component({
   selector: 'auth-login',
@@ -12,7 +11,7 @@ import { IUser } from '../../domain/auth/auth.dto';
   }
 })
 export class AuthLoginComponent implements OnInit {
-  myForm: FormGroup;
+  formGroup: FormGroup;
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -21,13 +20,13 @@ export class AuthLoginComponent implements OnInit {
   }
 
   createForm(): void {
-    this.myForm = this.formBuilder.group(AuthenticationFormFields);
+    this.formGroup = this.formBuilder.group(AuthenticationFormFields);
   }
 
-  authentication(){
-    console.log(this.myForm.value);
+  authentication() {
+    console.log(this.formGroup.value);
   }
 
-  get usernameField() { return this.myForm.get('username'); }
-  get passwordField() { return this.myForm.get('password'); }
+  get usernameField() { return this.formGroup.get('username'); }
+  get passwordField() { return this.formGroup.get('password'); }
 }
