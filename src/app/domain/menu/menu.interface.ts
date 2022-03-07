@@ -1,7 +1,7 @@
-import { Icons } from "@core/constants/icons.enum";
+import { icons } from "@core/constants/icons.enum";
 
 export interface IMenu {
     name: string,
-    icon: Icons,
+    icon: icons,
     routerLink: string
 }
