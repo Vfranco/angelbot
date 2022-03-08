@@ -1,0 +1,11 @@
+.login {
+  &-image {
+    background: url("https://www.iberdrola.com/documents/20125/1229023/RPA_746x419.jpg/cd3e6110-dff2-6ed9-0158-c1bbfe7589b6?t=1639132784495");
+    background-position: center;
+    background-size: cover;
+  }
+
+  &-form-lef {
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+  }
+}
