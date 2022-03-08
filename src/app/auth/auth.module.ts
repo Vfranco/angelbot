@@ -5,6 +5,7 @@ import { RouterModule } from "@angular/router";
 import { AuthProvider } from "@domain/auth/auth.provider";
 import { authRoute } from "./auth.routing";
 import { AuthLoginComponent } from "./login/login.component";
+import { localstorageProvider } from '../domain/repository/localstorage.provider';
 
 @NgModule({
   declarations: [AuthLoginComponent],
@@ -13,6 +14,6 @@ import { AuthLoginComponent } from "./login/login.component";
     ReactiveFormsModule,
     RouterModule.forChild(authRoute)
   ],
-  providers: [AuthProvider]
+  providers: [AuthProvider, localstorageProvider]
 })
 export class AuthModule { }

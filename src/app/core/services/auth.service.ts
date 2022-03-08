@@ -1,15 +1,15 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from "@angular/core";
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from "rxjs";
-import { IUser } from '../../domain/auth/auth.dto';
-import { environment } from '../../../environments/environment';
+import { DtoResponseAuthLogin, IUser} from '@domain/auth/auth.dto';
+import { environment } from '@environment/environment';
 
 @Injectable()
 export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  addUser(user: IUser): Observable<any> {
-    return this.http.post<any>(environment.baseUrl, user);
+  addUser(userCredential: IUser): Observable<HttpResponse<DtoResponseAuthLogin>>{
+    return this.http.post<DtoResponseAuthLogin>(`${environment.baseUrl}/api/SignIn`, userCredential,{observe:'response'});
   }
 }

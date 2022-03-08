@@ -1,9 +1,12 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
-import { AuthenticationFormFields, messageValidations } from '../../core/constants/authentication.fields';
-import { IAuthRepository } from '../../domain/auth/auth.repository';
+import { AuthenticationFormFields } from '@core/constants/authentication.fields';
+import { IAuthRepository } from '@domain/auth/auth.repository';
 import { Router } from '@angular/router';
-import { Status } from '../../core/constants/status.enum';
+import { HttpErrorResponse, HttpResponse, HttpStatusCode } from "@angular/common/http";
+import { ILocalStorageRepository } from '@domain/repository/localstorage.repository';
+import { DtoResponseAuthLogin } from '@domain/auth/auth.dto';
+import { Redirection } from "@core/constants/authentication.enum";
 
 @Component({
   selector: 'auth-login',
@@ -16,10 +19,14 @@ import { Status } from '../../core/constants/status.enum';
 export class AuthLoginComponent implements OnInit {
 
   formGroup: FormGroup;
-  messageValidations: messageValidations;
+  errorNotNavegate: boolean = false;
+  errorAuthentication: HttpErrorResponse;
+  authenticationResponse: HttpResponse<any>
 
-  constructor(private formBuilder: FormBuilder, @Inject('authRepository') private authService: IAuthRepository,
-    private router: Router) { }
+  constructor(private formBuilder: FormBuilder,
+    @Inject('authRepository') private authService: IAuthRepository,
+    private router: Router,
+    @Inject('localstorageRepository') private localstorageService: ILocalStorageRepository) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -30,13 +37,25 @@ export class AuthLoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.addUser(this.formGroup.value).subscribe(response => {
-      console.log(response);
-    })
+    this.authService.addUser(this.formGroup.value).subscribe(
+      response => {
+        this.validateResponseAuthentication(response);
+        this.authenticationResponse = response;
+      },
+      (error: HttpErrorResponse) => {
+        this.errorAuthentication = error;
+      }
+    );
   }
 
-  homePage(): void {
-    this.router.navigateByUrl('/admin/home');
+  private validateResponseAuthentication(response: HttpResponse<DtoResponseAuthLogin>): void {
+    (response.status === HttpStatusCode.NoContent) ?
+      this.errorNotNavegate = true : this.redirectAndSaveSesion(response);
+  }
+
+  private redirectAndSaveSesion(response: HttpResponse<DtoResponseAuthLogin>): void {
+    this.localstorageService.saveItem(Redirection.userSession, response.body)
+    this.router.navigate([Redirection.home]);
   }
 
   get usernameField(): AbstractControl { return this.formGroup.get('username'); }
