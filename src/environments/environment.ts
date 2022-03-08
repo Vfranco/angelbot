@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'https://api.appceleste.com',
+  baseUrl: 'https://api.angelbotcea.com',
   type: 'Dev'
 };
 

@@ -11,6 +11,6 @@ export class LocalStorageService implements ILocalStorageRepository {
   }
 
   removeItem(): void {
-      return window.localStorage.clear();
+    return window.localStorage.clear();
   }
 }

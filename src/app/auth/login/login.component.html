@@ -7,7 +7,7 @@
             <div class="ml-2 text-primary text-center main-title">
               <h1 class="h4 mb-4 text-color-white">AngelBot</h1>
             </div>
-            <form class="user" [formGroup]="formGroup" (ngSubmit)="login()">
+            <form class="user" [formGroup]="formGroup">
               <div class="form-group">
                 <label class="ml-2"><span class="fa fa-user mx-2 text-primary"></span>Usuario</label>
                 <input type="text" formControlName="username" class="form-control form-control-user"
@@ -40,9 +40,9 @@
                   <label class="custom-control-label" for="customCheck">Recordar datos de sesión</label>
                 </div>
               </div>
-              <button type="submit" (click)="homePage()" [disabled]="formGroup.invalid"
+              <button type="submit" (click)="login()" [disabled]="formGroup.invalid || isLoading"
                 class="btn btn-primary btn-user btn-block">
-                Ingresar
+                {{ (isLoading) ? 'Ingresando ...' : 'Ingresar' }}
               </button>
             </form>
             <hr>
