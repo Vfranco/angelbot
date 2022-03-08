@@ -40,8 +40,8 @@
                   <label class="custom-control-label" for="customCheck">Recordar datos de sesión</label>
                 </div>
               </div>
-              <button type="submit" (click)="homePage()" [disabled]="formGroup.invalid"
-                class="btn btn-primary btn-user btn-block">
+              <button type="submit" [disabled]="formGroup.invalid" class="btn btn-primary btn-user btn-block"
+                (click)="homePage()">
                 Ingresar
               </button>
             </form>

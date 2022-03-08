@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from "@angular/core";
 import { AbstractControl, FormBuilder, FormGroup } from "@angular/forms";
-import { AuthenticationFormFields } from '../../core/constants/authentication.fields';
+import { AuthenticationFormFields, messageValidations } from '../../core/constants/authentication.fields';
 import { IAuthRepository } from '../../domain/auth/auth.repository';
 import { Router } from '@angular/router';
 import { Status } from '../../core/constants/status.enum';
@@ -16,6 +16,7 @@ import { Status } from '../../core/constants/status.enum';
 export class AuthLoginComponent implements OnInit {
 
   formGroup: FormGroup;
+  messageValidations: messageValidations;
 
   constructor(private formBuilder: FormBuilder, @Inject('authRepository') private authService: IAuthRepository,
     private router: Router) { }
@@ -29,10 +30,9 @@ export class AuthLoginComponent implements OnInit {
   }
 
   login(): void {
-    this.authService.addUser(this.formGroup.value)
-      .subscribe(response => {
-        console.log(response);
-      })
+    this.authService.addUser(this.formGroup.value).subscribe(response => {
+      console.log(response);
+    })
   }
 
   homePage(): void {
