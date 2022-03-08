@@ -5,7 +5,7 @@
     <div class="sidebar-brand-icon rotate-n-15">
       <i class="fas fa-bell"></i>
     </div>
-    <div class="sidebar-brand-text mx-3">Celeste</div>
+    <div class="sidebar-brand-text mx-3">Angel BOT</div>
   </a>
 
   <!-- Divider -->
@@ -60,77 +60,11 @@
     </div>
   </li> -->
 
-  <!-- Nav Item - Charts -->
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'empresas'">
-      <i class="fas fa-fw fa-chart-area"></i>
-      <span>Empresas</span></a>
-  </li>
-
-  <!-- Nav Item - Tables -->
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'zones'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Zonas</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'novelties'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Novedades</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'subnovelties'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Sub Novedades</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'rates'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Tarifas</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'parking'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Parqueaderos</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'usuarios'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Usuarios</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'devices'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Dispositivos</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'floors'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Pisos</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'graphics'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Graficas</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'reports'">
-      <i class="fas fa-fw fa-table"></i>
-      <span>Reportes</span></a>
-  </li>
-
-  <li class="nav-item">
-    <a class="nav-link" [routerLink]="'configuration'">
-      <i class="fas fa-fw fa-cog"></i>
-      <span>Configuración</span></a>
-  </li>
-</ul>
+  <!-- Nav Item -->
+  <ng-container *ngFor="let item of items">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="[item.routerLink]">
+        <i class="{{item.icon}}"></i>
+        <span>{{item.name}}</span></a>
+    </li>
+  </ng-container>
