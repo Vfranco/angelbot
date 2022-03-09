@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { IUser } from './auth.dto';
+import { UserCredentials } from './auth.dto';
 
 export interface IAuthRepository {
-  addUser(user: IUser): Observable<any>;
+  authentication(user: UserCredentials): Observable<any>;
 }

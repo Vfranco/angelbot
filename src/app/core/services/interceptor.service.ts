@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { Inject, Injectable, Provider } from "@angular/core";
 import { Navigation } from "@core/constants/navigataion.enum";
-import { RepositoryProvider } from "@core/constants/repository.enum";
+import { RepositoryProvider } from "@core/constants/Repository.enum";
 import { UserDto } from "@domain/dto/user.dto";
 import { ILocalStorageRepository } from "@domain/repository/localstorage.repository";
 import { Observable } from "rxjs";

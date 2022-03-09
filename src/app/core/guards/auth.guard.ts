@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@angular/core";
 import { CanActivate, Router } from "@angular/router";
 import { ILocalStorageRepository } from "@domain/repository/localstorage.repository";
 import { Redirection } from '@core/constants/authentication.enum';
-import { DtoResponseAuthLogin } from '@domain/auth/auth.dto';
+import { Authentication } from '../../domain/auth/auth.dto';
 
 
 @Injectable({ providedIn: 'root' })
@@ -13,7 +13,7 @@ export class AuthGuard implements CanActivate {
   ) { }
 
   canActivate(): boolean {
-    let userSession : DtoResponseAuthLogin = this.localstorageService.getItem(Redirection.userSession);
+    let userSession : Authentication = this.localstorageService.getItem(Redirection.userSession);
     return (userSession) ? true : this.redirectToLogin();
   }
 
