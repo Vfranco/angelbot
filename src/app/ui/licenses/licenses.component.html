@@ -1,0 +1,74 @@
+<content-component [title]="'Licenses'">
+  <div class="d-flex justify-content-between mb-2">
+    <p>Gestiona tus licencias</p>
+    <button class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-bs-toggle="modal"
+      data-bs-target="#modalCreateAndEditLicense" (click)="showFormToCreate()">Registrar Licencia</button>
+  </div>
+  <div class="row">
+    <div class="col">
+      <data-table [title]="'Licenses'">
+        <thead>
+          <ng-container *ngFor="let thead of dataTableHead">
+            <th>{{thead}}</th>
+          </ng-container>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let license of licenseData">
+            <tr>
+              <td>{{license.name}}</td>
+              <td>{{license.code}}</td>
+              <td>{{license.companyName}}</td>
+              <td>{{license.dateInit}}</td>
+              <td>{{license.dateExpire}}</td>
+              <td>
+                <div class="btn-group">
+                  <button class="btn btn-info btn-sm" (click)="showModalWithLicenseData(license)" data-bs-toggle="modal"
+                    data-bs-target="#modalCreateAndEditLicense"><i class="fa fa-edit"></i></button>
+                  <button class="btn btn-danger btn-sm" (click)="deleteLicense(license)"><i
+                      class="fa fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </data-table>
+    </div>
+  </div>
+  <modal-component #modalCreateAndEditLicense [idModal]="'modalCreateAndEditLicense'" [modalTitle]="'Registrar Licencia'" [modalLarge]="true">
+    <div class="row">
+      <div class="col">
+        <h5 class="no-margin">Registra tu licencia</h5>
+        <small>Registra las empresas</small>
+        <alert-message [error]="licenseErrorService"></alert-message>
+        <form class="mt-3" [formGroup]="formLicense">
+          <div class="form-group">
+            <label for="name">Nombre Licencia</label>
+            <input type="text" class="form-control" formControlName="name" autofocus>
+          </div>
+          <div class="form-group">
+            <label for="firstname">Codigo</label>
+            <input type="text" class="form-control" formControlName="code">
+          </div>
+          <combobox formControlName="companyId" [label]="'Empresa'" [name]="'companyId'"
+            [endpoint]="'api/ComboBoxGeneral/GetCompanies'">
+          </combobox>
+          <div class="form-group">
+            <label for="phoneNumber">Fecha Inicio</label>
+            <input type="date" class="form-control" formControlName="dateInit">
+          </div>
+          <div class="form-group">
+            <label for="username">Fecha Expiracion</label>
+            <input type="date" class="form-control" formControlName="dateExpire">
+          </div>
+        </form>
+      </div>
+    </div>
+    <ng-template *ngIf="isEditLicense then edit else create"></ng-template>
+    <ng-template #edit>
+      <button type="submit" class="btn btn-primary btn-modal-edit" (click)="editLicense()" [disabled]="formLicense.invalid">Actualizar Licencia</button>
+    </ng-template>
+    <ng-template #create>
+      <button type="submit" class="btn btn-primary btn-modal-create" (click)="createLicense()" [disabled]="formLicense.invalid">Guardar Licencia</button>
+    </ng-template>
+  </modal-component>
+</content-component>
