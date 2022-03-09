@@ -2,7 +2,7 @@ import { Inject, Injectable } from "@angular/core";
 import { CanActivate, Router } from "@angular/router";
 import { ILocalStorageRepository } from "@domain/repository/localstorage.repository";
 import { Redirection } from '@core/constants/authentication.enum';
-import { Authentication } from '../../domain/auth/auth.dto';
+import { Authentication } from '@domain/auth/auth.dto';
 
 
 @Injectable({ providedIn: 'root' })

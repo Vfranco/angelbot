@@ -9,7 +9,7 @@ import { Observable } from "rxjs";
 @Injectable()
 export class HttpConfigService implements HttpInterceptor {
 
-  constructor(@Inject(RepositoryProvider.localStorageProvider) private localStorage: ILocalStorageRepository) { }
+  constructor(@Inject('localstorageRepository') private localStorage: ILocalStorageRepository) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const getToken: UserDto = this.localStorage.getItem(Navigation.userSession);
