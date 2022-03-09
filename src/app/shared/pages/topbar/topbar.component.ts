@@ -16,7 +16,7 @@ export class TopbarComponent implements OnInit {
   constructor(@Inject('localstorageRepository') private localstorageService: ILocalStorageRepository, private router: Router) { }
 
   ngOnInit(): void {
-
+    this.recoverySessionFromLocalStorage();
   }
 
   recoverySessionFromLocalStorage(): void {
