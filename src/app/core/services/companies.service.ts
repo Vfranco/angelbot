@@ -1,9 +1,9 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CreateCompanie, GetCompanie, UpdateCompanie } from "@domain/dto/companies.dto";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { ICompaniesRepository } from "@domain/repository/companies.repository";
+import { CreateCompanie, GetCompanie, UpdateCompanie } from "@domain/companies/companie.dto";
+import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
+import { IResponseBodyDto } from "@domain/http/response.body.dto";
+import { ICompaniesRepository } from "@domain/companies/companie.repository";
 import { environment } from "@environment/environment";
 import { Observable } from "rxjs";
 
@@ -12,8 +12,8 @@ export class CompaniesService implements ICompaniesRepository {
 
   constructor(private http: HttpClient) { }
 
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/Companies/All`, payload, { observe: 'response' });
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBodyDto>> {
+    return this.http.post<IResponseBodyDto>(`${environment.baseUrl}/api/Companies/All`, payload, { observe: 'response' });
   }
 
   createCompanie(payload: CreateCompanie): Observable<HttpResponse<any>> {
