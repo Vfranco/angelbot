@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from "@angular/router";
+import { CompanieProvider } from "@domain/companies/companie.provider";
 import { DataTableModule } from "@shared/customs/data-table/datatable.module";
 import { SharedModule } from "@shared/shared.module";
 import { CompaniesPageComponent } from './companies.component';
@@ -17,6 +18,6 @@ import { empresasRoute } from "./companies.routing";
     DataTableModule,
     RouterModule.forChild(empresasRoute)
   ],
-  providers: []
+  providers: [CompanieProvider]
 })
 export class EmpresasModule { }
