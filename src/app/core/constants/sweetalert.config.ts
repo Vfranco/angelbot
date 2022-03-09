@@ -120,3 +120,40 @@ export const noveltieSuccess: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK'
 }
+
+export const licenseWarning: SweetAlertOptions = {
+  title: 'Advertencia',
+  text: '¿Deseas eliminar la licencia?',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK',
+};
+
+export const licenseCreated: SweetAlertOptions = {
+  title: 'Registro Exitoso',
+  text: 'Licencia creada exitosamente',
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK',
+};
+
+export const licenseUpdated: SweetAlertOptions = {
+  title: 'Actualización Exitosa',
+  text: 'Licencia actualizada exitosamente',
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK',
+};
+
+export const licenseDeleted: SweetAlertOptions = {
+  title: 'Eliminacion Exitosa',
+  text: 'Empresa eliminada exitosamente',
+  icon: 'success',
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'OK',
+};
