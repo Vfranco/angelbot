@@ -5,9 +5,9 @@ import { IAuthRepository } from '@domain/auth/auth.repository';
 import { Router } from '@angular/router';
 import { HttpErrorResponse, HttpResponse, HttpStatusCode } from "@angular/common/http";
 import { ILocalStorageRepository } from '@domain/repository/localstorage.repository';
-import { DtoResponseAuthLogin } from '@domain/auth/auth.dto';
 import { Redirection } from "@core/constants/authentication.enum";
 import { Status } from "@core/constants/status.enum";
+import { Authentication } from '../../domain/auth/auth.dto';
 
 @Component({
   selector: 'auth-login',
@@ -39,9 +39,11 @@ export class AuthLoginComponent implements OnInit {
   }
 
   login(): void {
+    console.log('entra');
     this.isLoading = Status.isLoading;
-    this.authService.addUser(this.formGroup.value).subscribe(
+    this.authService.authentication(this.formGroup.value).subscribe(
       response => {
+        console.log('response',response);
         this.validateResponseAuthentication(response);
         this.authenticationResponse = response;
       },
@@ -52,13 +54,13 @@ export class AuthLoginComponent implements OnInit {
     );
   }
 
-  private validateResponseAuthentication(response: HttpResponse<DtoResponseAuthLogin>): void {
+  private validateResponseAuthentication(response: HttpResponse<Authentication>): void {
     (response.status === HttpStatusCode.NoContent) ?
       this.errorNotNavegate = true : this.redirectAndSaveSesion(response);
     this.isLoading = Status.notLoading;
   }
 
-  private redirectAndSaveSesion(response: HttpResponse<DtoResponseAuthLogin>): void {
+  private redirectAndSaveSesion(response: HttpResponse<Authentication>): void {
     this.localstorageService.saveItem(Redirection.userSession, response.body)
     this.router.navigate([Redirection.home]);
   }
