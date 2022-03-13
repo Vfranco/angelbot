@@ -1,12 +1,12 @@
 import { HttpResponse } from "@angular/common/http";
 import { IUsersField } from "@core/validators/usersform.validator";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { ChangePassword, UserDto } from "@domain/dto/user.dto";
+import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
+import { IResponseBodyDto } from "@domain/http/response.body.dto";
 import { Observable } from "rxjs";
+import { ChangePassword, UserDto } from "./user.dto";
 
 export interface IUserRepository {
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>>
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBodyDto>>
   createUser(payload: IUsersField): Observable<HttpResponse<any>>
   updateUser(payload: IUsersField): Observable<HttpResponse<any>>
   getUserById(id: number): Observable<HttpResponse<UserDto>>
