@@ -39,11 +39,9 @@ export class AuthLoginComponent implements OnInit {
   }
 
   login(): void {
-    console.log('entra');
     this.isLoading = Status.isLoading;
     this.authService.authentication(this.formGroup.value).subscribe(
       response => {
-        console.log('response',response);
         this.validateResponseAuthentication(response);
         this.authenticationResponse = response;
       },
