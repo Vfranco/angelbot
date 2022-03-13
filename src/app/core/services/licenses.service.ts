@@ -12,9 +12,8 @@ export class LicensesService implements ILicensesRepository {
 
   constructor(private http: HttpClient) { }
 
-
   readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBodyDto>> {
-    return this.http.post<IResponseBodyDto>(`${environment.baseUrl}/api/Licenses/All`, payload, { observe: 'response' });
+    return this.http.post<IResponseBodyDto>(`${environment.baseUrl}/api/Licenses/All`, payload, { observe: 'response'});
   }
 
   createLicense(payload: CreateLicense): Observable<HttpResponse<any>> {

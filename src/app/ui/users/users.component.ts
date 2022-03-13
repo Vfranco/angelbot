@@ -6,9 +6,10 @@ import { RequestAction } from "@core/constants/requestactions.enum";
 import { userChangePasswordSuccess, userCreatedUser, userEdit, userWarning } from "@core/constants/sweetalert.config";
 import { dataTableHeadUsers } from "@core/constants/table.headers";
 import { ChangePasswordField, UsersField } from "@core/constants/users.field";
-import { IFilterRequestBody, RequestBody } from "@domain/dto/request.body.dto";
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { UserDto } from "@domain/dto/user.dto";
+import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
+import { RequestBodyDto } from "@domain/http/request.body.dto";
+import { IResponseBodyDto } from "@domain/http/response.body.dto";
+import { UserDto } from "@domain/users/user.dto";
 import { IUserRepository } from "@domain/users/user.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
@@ -24,7 +25,7 @@ export class UserComponent implements OnInit {
 
   dataTableHead: string[] = dataTableHeadUsers;
   userData: UserDto[];
-  userRequest: IFilterRequestBody = new RequestBody;
+  userRequest: IFilterRequestBody = new RequestBodyDto;
   formCreateUserData: FormGroup;
   formChangeUserPassword: FormGroup;
   isEditUser: boolean = false;
@@ -45,7 +46,7 @@ export class UserComponent implements OnInit {
 
   fetchUserData(): void {
     this.userService.readAll(this.userRequest).subscribe(
-      (response: HttpResponse<IResponseBody>) => this.userData = response.body.list
+      (response: HttpResponse<IResponseBodyDto>) => this.userData = response.body.list
     );
   }
 

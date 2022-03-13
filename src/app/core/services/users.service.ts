@@ -1,12 +1,12 @@
 import { HttpClient, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { IFilterRequestBody } from "@domain/dto/request.body.dto";
-import { IUserRepository } from '../../domain/users/user.repository';
-import { Observable } from 'rxjs';
-import { IResponseBody } from "@domain/dto/response.body.dto";
-import { environment } from "@environment/environment";
 import { IUsersField } from "@core/validators/usersform.validator";
-import { ChangePassword, UserDto } from "@domain/dto/user.dto";
+import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
+import { IResponseBodyDto } from "@domain/http/response.body.dto";
+import { ChangePassword, UserDto } from "@domain/users/user.dto";
+import { IUserRepository } from "@domain/users/user.repository";
+import { environment } from "@environment/environment";
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UsersServices implements IUserRepository {
@@ -25,8 +25,8 @@ export class UsersServices implements IUserRepository {
     return this.http.put(`${environment.baseUrl}/api/Users/${payload.id}`, payload, { observe: 'response' });
   }
 
-  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBody>> {
-    return this.http.post<IResponseBody>(`${environment.baseUrl}/api/Users/All`, payload, { observe: 'response' });
+  readAll(payload: IFilterRequestBody): Observable<HttpResponse<IResponseBodyDto>> {
+    return this.http.post<IResponseBodyDto>(`${environment.baseUrl}/api/Users/All`, payload, { observe: 'response' });
   }
 
   createUser(payload: IUsersField): Observable<HttpResponse<any>> {
