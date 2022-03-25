@@ -13,6 +13,7 @@ import { RequestBodyDto } from "@domain/http/request.body.dto";
 import { ILicensesRepository } from "@domain/licenses/licenses.repository";
 import { ModalComponent } from "@shared/customs/modal/modal.component";
 import swal, { SweetAlertResult } from 'sweetalert2';
+import { ComboBoxComponent } from "@shared/customs/combobox/combobox.component";
 
 @Component({
   selector: 'licenses-component',
@@ -20,6 +21,7 @@ import swal, { SweetAlertResult } from 'sweetalert2';
 })
 export class LicensesComponent implements OnInit {
   @ViewChild('modalCreateAndEditLicense') modalLicense: ModalComponent;
+  @ViewChild(ComboBoxComponent) comboboxComponent: ComboBoxComponent;
 
   dataTableHead: string[] = dataTableHeadLicenses;
   formLicense: FormGroup;
@@ -34,10 +36,6 @@ export class LicensesComponent implements OnInit {
     private licenseService: ILicensesRepository,
     private formBuilder: FormBuilder
   ) {}
-
-  get checkEmail(): AbstractControl {
-    return this.formLicense.get('email');
-  }
 
   ngOnInit(): void {
     this.initializeLicenseForm();
@@ -90,6 +88,7 @@ export class LicensesComponent implements OnInit {
   showModalWithLicenseData(license: GetLicense): void {
     this.showErrorLicenseService = false;
     this.isEditLicense = true;
+    this.comboboxComponent.setDisabledState(true);
     this.licenseService
       .getLicenseById(license.id)
       .subscribe((response) => this.formLicense.patchValue(response.body));
@@ -114,5 +113,6 @@ export class LicensesComponent implements OnInit {
     this.formLicense.reset();
     this.showErrorLicenseService = false;
     this.isEditLicense = false;
+    this.comboboxComponent.setDisabledState(false);
   }
 }
