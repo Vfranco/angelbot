@@ -1,10 +1,8 @@
 export interface LicensesDto {
+  canAccess: boolean;
   id: number;
-  companyId: number;
+  companyId: number,
   name: string;
-  nit: string;
-  email: string;
-  address: string;
   statusId: number;
   statusName: string;
   status: boolean;
@@ -14,10 +12,10 @@ export interface LicensesDto {
   dateExpire: string;
 }
 
-export type CreateLicense = Omit<LicensesDto, 'id' | 'statusId' | 'statusName' | 'status' | 'companyName' | 'dateInit'>;
+export type CreateLicense = Pick<LicensesDto, 'companyId' | 'name' | 'code' | 'dateExpire'>;
 
-export type UpdateLicense = Pick<LicensesDto, 'id' | 'name' | 'nit' | 'email' | 'address'>;
+export type UpdateLicense = Pick<LicensesDto, 'id' | 'dateInit' | 'dateExpire'>;
 
-export type GetLicense = Pick<LicensesDto, 'id' | 'name' | 'statusId' | 'statusName' | 'code' | 'companyName' | 'dateInit' | 'dateExpire'>;
+export type GetLicense = Omit<LicensesDto, 'companyId'>;
 
 export type DeleteLicense = Pick<LicensesDto, 'id'>;
