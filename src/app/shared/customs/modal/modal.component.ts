@@ -1,10 +1,11 @@
 import { Component, ElementRef, Input, ViewChild } from "@angular/core";
+import { IModalComponent } from "@domain/companies/IModalComponent";
 
 @Component({
   selector: 'modal-component',
   templateUrl: './modal.component.html'
 })
-export class ModalComponent {
+export class ModalComponent implements IModalComponent {
   @ViewChild('buttonCloseModal') buttonModal: ElementRef;
 
   @Input() idModal: string;

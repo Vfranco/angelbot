@@ -5,11 +5,15 @@ import { RouterModule } from "@angular/router";
 import { CompanieProvider } from "@domain/companies/companie.provider";
 import { DataTableModule } from "@shared/customs/data-table/datatable.module";
 import { SharedModule } from "@shared/shared.module";
-import { CompaniesPageComponent } from './companies.component';
+import { CompaniesPageComponent } from './view/companies.component';
 import { empresasRoute } from "./companies.routing";
+import { CompaniesPProvider } from "@domain/companies/companieProvider.provider";
+import { CompaniesInteractor } from "./interactor/companies.interactor";
 
 @NgModule({
-  declarations: [CompaniesPageComponent],
+  declarations: [
+    CompaniesPageComponent
+  ],
   imports: [
     CommonModule,
     SharedModule,
@@ -18,6 +22,6 @@ import { empresasRoute } from "./companies.routing";
     DataTableModule,
     RouterModule.forChild(empresasRoute)
   ],
-  providers: [CompanieProvider]
+  providers: [CompanieProvider, CompaniesPProvider, CompaniesInteractor]
 })
 export class EmpresasModule { }

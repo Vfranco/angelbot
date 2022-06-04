@@ -1,10 +1,11 @@
 export interface CompaniesDto {
   id: number,
-  name: string
-  nit: string
-  email: string
-  address: string
-  phoneNumber: string
+  name: string,
+  plan:string,
+  nit: string,
+  email: string,
+  address: string,
+  phoneNumber: string,
   statusId: number,
   statusName: number
 }

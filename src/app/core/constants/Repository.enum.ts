@@ -6,4 +6,7 @@ export enum RepositoryProvider {
   zoneRepository = 'ZoneRepository',
   noveltieProperty = 'noveltieProvider',
   licensesRepository = 'LicensesRepository',
+  companiesPresenterProvider = 'CompaniesPresenterProvider',
+  usersPresenterProvider = 'UsersPresenterProvider',
+  licensesPresenterProvider = 'LicensesPresenterProvider',
 }
