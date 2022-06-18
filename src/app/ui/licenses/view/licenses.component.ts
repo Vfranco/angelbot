@@ -45,15 +45,15 @@ export class LicensesComponent implements OnInit, ILicensesPresenterOutput {
   }
 
   fetchData(): void {
-    this._Presenter.fetchData();
+    this._Presenter.fetchData(this.requestBody);
   }
 
   createLicense(): void {
-    this._Presenter.createLicense();
+    this._Presenter.createLicense(this.formLicense);
   }
 
   editLicense(): void {
-    this._Presenter.editLicense();
+    this._Presenter.editLicense(this.formLicense);
   }
 
   showModalWithLicenseData(license: GetLicense): void {

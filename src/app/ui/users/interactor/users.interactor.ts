@@ -13,13 +13,12 @@ import swal from 'sweetalert2';
 import { UserDto } from "@domain/users/user.dto";
 import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
 import { RequestBodyDto } from "@domain/http/request.body.dto";
+import { FormGroup } from "@angular/forms";
 
 @Injectable()
 export class UsersInteractor implements IUsersPresenterInput {
   private _presenter: IUsersInteractorOuput;
   private _view: IUsersPresenterOutput;
-  userRequest: IFilterRequestBody = new RequestBodyDto;
-
 
   constructor(@Inject(RepositoryProvider.usersRepository) private userService: IUserRepository) { }
 
@@ -31,15 +30,14 @@ export class UsersInteractor implements IUsersPresenterInput {
     this._view = view;
   }
 
-  fetchUserData(): void {
-    //    this.userService.readAll(this._view.userRequest).subscribe(
-    this.userService.readAll(this.userRequest).subscribe(
+  fetchUserData(userRequest: IFilterRequestBody): void {
+    this.userService.readAll(userRequest).subscribe(
       (response: HttpResponse<IResponseBodyDto>) => this._view.userData = response.body.list
     );
   }
 
-  createUserData(): void {
-    this.userService.createUser(this._view.formCreateUserData.value).subscribe((response: HttpResponse<any>) => {
+  createUserData(formUser:FormGroup): void {
+    this.userService.createUser(formUser.value).subscribe((response: HttpResponse<any>) => {
       if (response.status === HttpStatusCode.Created) {
         this._view.modalCreateAndEditUsers.closeModal();
         Swal.fire(userCreatedUser);
@@ -51,9 +49,9 @@ export class UsersInteractor implements IUsersPresenterInput {
     });
   }
 
-  editUserData(): void {
-    this._view.formCreateUserData.get('statusId').setValue(RequestAction.update);
-    this.userService.updateUser(this._view.formCreateUserData.value).subscribe((response: HttpResponse<any>) => {
+  editUserData(formUser:FormGroup): void {
+    formUser.get('statusId').setValue(RequestAction.update);
+    this.userService.updateUser(formUser.value).subscribe((response: HttpResponse<any>) => {
       if (response.status === HttpStatusCode.NoContent) {
         this._view.modalCreateAndEditUsers.closeModal();
         swal.fire(userEdit);
@@ -88,8 +86,8 @@ export class UsersInteractor implements IUsersPresenterInput {
     this._view.formChangeUserPassword.patchValue(user);
   }
 
-  changeUserPassword(): void {
-    this.userService.changePassword(this._view.userDtoData.id, this._view.formChangeUserPassword.value).subscribe(response => {
+  changeUserPassword(formChangePassword:FormGroup): void {
+    this.userService.changePassword(this._view.userDtoData.id, formChangePassword.value).subscribe(response => {
       if (response.status === HttpStatusCode.NoContent) {
         this._view.modalChangePassword.closeModal();
         swal.fire(userChangePasswordSuccess);

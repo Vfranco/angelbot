@@ -11,6 +11,8 @@ import { ILicensesPresenterInput } from "../presenter/licenses.presenter.input";
 import { ILicensesPresenterOutput } from '../presenter/licenses.presenter.output';
 import { ILicensesInteractorOutput } from './licenses.interactor.output';
 import swal from 'sweetalert2';
+import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
+import { FormGroup } from "@angular/forms";
 
 
 @Injectable()
@@ -28,12 +30,12 @@ export class LicensesInteractor implements ILicensesPresenterInput {
     this._view = view;
   }
 
-  fetchData(): void {
-    this.licenseService.readAll(this._view.requestBody).subscribe((response) => (this._view.licenseData = response.body.list));
+  fetchData(requestBody: IFilterRequestBody): void {
+    this.licenseService.readAll(requestBody).subscribe((response) => (this._view.licenseData = response.body.list));
   }
 
-  createLicense(): void {
-    this.licenseService.createLicense(this._view.formLicense.value).subscribe(
+  createLicense(formLicense: FormGroup): void {
+    this.licenseService.createLicense(formLicense.value).subscribe(
       (response) => {
         if (response.status === HttpStatusCode.Created) {
           this._view.modalLicense.closeModal();
@@ -48,9 +50,9 @@ export class LicensesInteractor implements ILicensesPresenterInput {
     );
   }
 
-  editLicense(): void {
+  editLicense(formLicense: FormGroup): void {
     this._view.formLicense.get('statusId').setValue(RequestAction.update);
-    this.licenseService.updateLicense(this._view.formLicense.value).subscribe(
+    this.licenseService.updateLicense(formLicense.value).subscribe(
       (response) => {
         if (response.status === HttpStatusCode.NoContent) {
           this._view.modalLicense.closeModal();

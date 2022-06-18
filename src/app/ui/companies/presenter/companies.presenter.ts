@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 import { DeleteCompanie, GetCompanie } from "@domain/companies/companie.dto";
+import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
 import { CompaniesInteractor } from "../interactor/companies.interactor";
 import { ICompaniesInteractorOutput } from "../interactor/companies.interactor.output";
 import { ICompaniesPresenterInput } from './companies.presenter.input';
@@ -18,16 +20,16 @@ export class companiesPresenter implements ICompaniesPresenterInput, ICompaniesI
     this._interactor.setView(component);
   }
 
-  fetchData(): void {
-    this._interactor.fetchData();
+  fetchData(requestBody: IFilterRequestBody): void {
+    this._interactor.fetchData(requestBody);
   }
 
-  createCompanie(): void {
-    this._interactor.createCompanie();
+  createCompanie(formCompanie:FormGroup): void {
+    this._interactor.createCompanie(formCompanie);
   }
 
-  editCompanie(): void {
-    this._interactor.editCompanie();
+  editCompanie(formCompanie:FormGroup): void {
+    this._interactor.editCompanie(formCompanie);
   }
 
   showModalWithCompanieData(companie: GetCompanie): void {

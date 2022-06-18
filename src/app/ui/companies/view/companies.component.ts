@@ -46,15 +46,15 @@ export class CompaniesPageComponent implements OnInit, ICompaniesPresenterOutput
   }
 
   fetchData(): void {
-    this._presenter.fetchData();
+    this._presenter.fetchData(this.requestBody);
   }
 
   createCompanie(): void {
-    this._presenter.createCompanie();
+    this._presenter.createCompanie(this.formCompanie);
   }
 
   editCompanie(): void {
-    this._presenter.editCompanie();
+    this._presenter.editCompanie(this.formCompanie);
   }
 
   showModalWithCompanieData(companie: GetCompanie): void {

@@ -10,6 +10,8 @@ import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { ICompaniesPresenterOutput } from '../presenter/companies.presenter.output';
 import { ICompaniesInteractorOutput } from './companies.interactor.output';
 import { HttpErrorResponse } from "@angular/common/http";
+import { FormGroup } from "@angular/forms";
+import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
 
 @Injectable()
 export class CompaniesInteractor implements ICompaniesPresenterInput {
@@ -26,12 +28,12 @@ export class CompaniesInteractor implements ICompaniesPresenterInput {
     this._view = view;
   }
 
-  fetchData(): void {
-    this.companieService.readAll(this._view.requestBody).subscribe(response => this._view.companieData = response.body.list);
+  fetchData(requestBody: IFilterRequestBody): void {
+    this.companieService.readAll(requestBody).subscribe(response => this._view.companieData = response.body.list);
   }
 
-  createCompanie(): void {
-    this.companieService.createCompanie(this._view.formCompanie.value).subscribe(response => {
+  createCompanie(formCompanie:FormGroup): void {
+    this.companieService.createCompanie(formCompanie.value).subscribe(response => {
       if (response.status === HttpStatusCode.Created) {
         this._view.modalCompanie.closeModal();
         swal.fire(companieCreated);
@@ -43,9 +45,9 @@ export class CompaniesInteractor implements ICompaniesPresenterInput {
     });
   }
 
-  editCompanie(): void {
-    this._view.formCompanie.get('statusId').setValue(RequestAction.update);
-    this.companieService.updateCompanie(this._view.formCompanie.value).subscribe(response => {
+  editCompanie(formCompanie:FormGroup): void {
+    formCompanie.get('statusId').setValue(RequestAction.update);
+    this.companieService.updateCompanie(formCompanie.value).subscribe(response => {
       if (response.status === HttpStatusCode.NoContent) {
         this._view.modalCompanie.closeModal();
         swal.fire(companieUpdated);

@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
   }
 
   fetchUserData(): void {
-    this._Presenter.fetchUserData();
+    this._Presenter.fetchUserData(this.userRequest);
   }
 
   initializeFormCreateUser(): void {
@@ -53,11 +53,11 @@ export class UserComponent implements OnInit {
   }
 
   createUserData(): void {
-    this._Presenter.createUserData();
+    this._Presenter.createUserData(this.formCreateUserData);
   }
 
   editUserData(): void {
-    this._Presenter.editUserData();
+    this._Presenter.editUserData(this.formCreateUserData);
   }
 
   showModalWithUserData(user: UserDto): void {
@@ -74,7 +74,7 @@ export class UserComponent implements OnInit {
   }
 
   changeUserPassword(): void {
-    this._Presenter.changeUserPassword();
+    this._Presenter.changeUserPassword(this.formChangeUserPassword);
   }
 
   showFormToCreate(): void {

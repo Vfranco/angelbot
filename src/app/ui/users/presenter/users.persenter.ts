@@ -5,6 +5,8 @@ import { UsersInteractor } from '../interactor/users.interactor';
 import { IUsersPresenterInput } from './users.presenter.input';
 import { UserDto } from '@domain/users/user.dto';
 import { Injectable } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { IFilterRequestBody } from '@domain/http/filter.request.body.interface';
 
 @Injectable()
 export class UsersPresenter implements IUsersPresenterInput, IUsersInteractorOuput {
@@ -19,16 +21,16 @@ export class UsersPresenter implements IUsersPresenterInput, IUsersInteractorOup
     this._interactor.setView(component);
   }
 
-  fetchUserData(): void {
-    this._interactor.fetchUserData();
+  fetchUserData(userRequest: IFilterRequestBody): void {
+    this._interactor.fetchUserData(userRequest);
   }
 
-  createUserData(): void {
-    this._interactor.createUserData();
+  createUserData(formUser:FormGroup): void {
+    this._interactor.createUserData(formUser);
   }
 
-  editUserData(): void {
-    this._interactor.editUserData();
+  editUserData(formUser:FormGroup): void {
+    this._interactor.editUserData(formUser);
   }
 
   showModalWithUserData(user: UserDto): void {
@@ -43,8 +45,8 @@ export class UsersPresenter implements IUsersPresenterInput, IUsersInteractorOup
     this._interactor.setUserData(user);
   }
 
-  changeUserPassword(): void {
-    this._interactor.changeUserPassword();
+  changeUserPassword(formChangePassword:FormGroup): void {
+    this._interactor.changeUserPassword(formChangePassword);
   }
 
   showFormToCreate(): void {

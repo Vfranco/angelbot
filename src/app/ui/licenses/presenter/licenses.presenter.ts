@@ -4,6 +4,8 @@ import { LicensesInteractor } from '../interactor/licenses.interactor';
 import { ILicensesPresenterOutput } from './licenses.presenter.output';
 import { DeleteLicense, GetLicense } from '@domain/licenses/licenses.dto';
 import { Injectable } from '@angular/core';
+import { IFilterRequestBody } from '@domain/http/filter.request.body.interface';
+import { FormGroup } from '@angular/forms';
 
 @Injectable()
 export class LicensesPresenter implements ILicensesPresenterInput, ICompaniesInteractorOutput {
@@ -18,16 +20,16 @@ export class LicensesPresenter implements ILicensesPresenterInput, ICompaniesInt
     this._interactor.setView(component);
   }
 
-  fetchData(): void {
-    this._interactor.fetchData();
+  fetchData(requestBody: IFilterRequestBody): void {
+    this._interactor.fetchData(requestBody);
   }
 
-  createLicense(): void {
-    this._interactor.createLicense();
+  createLicense(formLicense: FormGroup): void {
+    this._interactor.createLicense(formLicense);
   }
 
-  editLicense(): void {
-    this._interactor.editLicense();
+  editLicense(formLicense: FormGroup): void {
+    this._interactor.editLicense(formLicense);
   }
 
   showModalWithLicenseData(license: GetLicense): void {
