@@ -31,9 +31,9 @@ export class LicensesComponent implements OnInit, ILicensesPresenterOutput {
   showErrorLicenseService: boolean;
 
   constructor(
-    @Inject(RepositoryProvider.licensesPresenterProvider) private _Presenter: ILicensesPresenterInput,
+    @Inject(RepositoryProvider.licensesPresenterProvider) private _presenter: ILicensesPresenterInput,
     private formBuilder: FormBuilder
-  ) { this._Presenter.setView(this) }
+  ) { this._presenter.setView(this) }
 
   ngOnInit(): void {
     this.initializeLicenseForm();
@@ -45,26 +45,26 @@ export class LicensesComponent implements OnInit, ILicensesPresenterOutput {
   }
 
   fetchData(): void {
-    this._Presenter.fetchData(this.requestBody);
+    this._presenter.fetchData(this.requestBody);
   }
 
   createLicense(): void {
-    this._Presenter.createLicense(this.formLicense);
+    this._presenter.createLicense(this.formLicense);
   }
 
   editLicense(): void {
-    this._Presenter.editLicense(this.formLicense);
+    this._presenter.editLicense(this.formLicense);
   }
 
   showModalWithLicenseData(license: GetLicense): void {
-    this._Presenter.showModalWithLicenseData(license);
+    this._presenter.showModalWithLicenseData(license);
   }
 
   deleteLicense(license: DeleteLicense): void {
-    this._Presenter.deleteLicense(license);
+    this._presenter.deleteLicense(license);
   }
 
   showFormToCreate(): void {
-    this._Presenter.showFormToCreate();
+    this._presenter.showFormToCreate();
   }
 }

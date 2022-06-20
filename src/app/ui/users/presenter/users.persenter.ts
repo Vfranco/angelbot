@@ -7,6 +7,7 @@ import { UserDto } from '@domain/users/user.dto';
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { IFilterRequestBody } from '@domain/http/filter.request.body.interface';
+import { IUsersField } from '@core/validators/usersform.validator';
 
 @Injectable()
 export class UsersPresenter implements IUsersPresenterInput, IUsersInteractorOuput {
@@ -25,11 +26,11 @@ export class UsersPresenter implements IUsersPresenterInput, IUsersInteractorOup
     this._interactor.fetchUserData(userRequest);
   }
 
-  createUserData(formUser:FormGroup): void {
+  createUserData(formUser:IUsersField): void {
     this._interactor.createUserData(formUser);
   }
 
-  editUserData(formUser:FormGroup): void {
+  editUserData(formUser:IUsersField): void {
     this._interactor.editUserData(formUser);
   }
 

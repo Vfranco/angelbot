@@ -14,6 +14,7 @@ import { UserDto } from "@domain/users/user.dto";
 import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
 import { RequestBodyDto } from "@domain/http/request.body.dto";
 import { FormGroup } from "@angular/forms";
+import { IUsersField } from "@core/validators/usersform.validator";
 
 @Injectable()
 export class UsersInteractor implements IUsersPresenterInput {
@@ -36,8 +37,8 @@ export class UsersInteractor implements IUsersPresenterInput {
     );
   }
 
-  createUserData(formUser:FormGroup): void {
-    this.userService.createUser(formUser.value).subscribe((response: HttpResponse<any>) => {
+  createUserData(formUser:IUsersField): void {
+    this.userService.createUser(formUser).subscribe((response: HttpResponse<any>) => {
       if (response.status === HttpStatusCode.Created) {
         this._view.modalCreateAndEditUsers.closeModal();
         Swal.fire(userCreatedUser);
@@ -49,9 +50,9 @@ export class UsersInteractor implements IUsersPresenterInput {
     });
   }
 
-  editUserData(formUser:FormGroup): void {
-    formUser.get('statusId').setValue(RequestAction.update);
-    this.userService.updateUser(formUser.value).subscribe((response: HttpResponse<any>) => {
+  editUserData(formUser:IUsersField): void {
+    this._view.formCreateUserData.get('statusId').setValue(RequestAction.update);
+    this.userService.updateUser(formUser).subscribe((response: HttpResponse<any>) => {
       if (response.status === HttpStatusCode.NoContent) {
         this._view.modalCreateAndEditUsers.closeModal();
         swal.fire(userEdit);

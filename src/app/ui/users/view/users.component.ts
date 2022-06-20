@@ -30,9 +30,9 @@ export class UserComponent implements OnInit {
   userDtoData: UserDto;
 
   constructor(
-    @Inject(RepositoryProvider.usersPresenterProvider) private _Presenter: IUsersPresenterInput,
+    @Inject(RepositoryProvider.usersPresenterProvider) private _presenter: IUsersPresenterInput,
     private formBuilder: FormBuilder
-  ) { this._Presenter.setView(this) }
+  ) { this._presenter.setView(this) }
 
   ngOnInit(): void {
     this.fetchUserData();
@@ -41,7 +41,7 @@ export class UserComponent implements OnInit {
   }
 
   fetchUserData(): void {
-    this._Presenter.fetchUserData(this.userRequest);
+    this._presenter.fetchUserData(this.userRequest);
   }
 
   initializeFormCreateUser(): void {
@@ -53,19 +53,19 @@ export class UserComponent implements OnInit {
   }
 
   createUserData(): void {
-    this._Presenter.createUserData(this.formCreateUserData);
+    this._presenter.createUserData(this.formCreateUserData.value);
   }
 
   editUserData(): void {
-    this._Presenter.editUserData(this.formCreateUserData);
+    this._presenter.editUserData(this.formCreateUserData.value);
   }
 
   showModalWithUserData(user: UserDto): void {
-    this._Presenter.showModalWithUserData(user);
+    this._presenter.showModalWithUserData(user);
   }
 
   deleteUserData(user: UserDto): void {
-    this._Presenter.deleteUserData(user);
+    this._presenter.deleteUserData(user);
   }
 
   setUserData(user: UserDto): void {
@@ -74,10 +74,10 @@ export class UserComponent implements OnInit {
   }
 
   changeUserPassword(): void {
-    this._Presenter.changeUserPassword(this.formChangeUserPassword);
+    this._presenter.changeUserPassword(this.formChangeUserPassword);
   }
 
   showFormToCreate(): void {
-    this._Presenter.showFormToCreate();
+    this._presenter.showFormToCreate();
   }
 }
