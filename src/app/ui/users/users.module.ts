@@ -5,8 +5,10 @@ import { RouterModule } from "@angular/router";
 import { UserProvider } from "@domain/users/user.provider";
 import { DataTableModule } from "@shared/customs/data-table/datatable.module";
 import { SharedModule } from "@shared/shared.module";
-import { UserComponent } from './users.component';
+import { UserComponent } from './view/users.component';
 import { usersRoute } from './users.routing';
+import { UsersInteractor } from "./interactor/users.interactor";
+import { UsersPProvider } from '@domain/users/userProvider.provider';
 
 @NgModule({
   declarations: [UserComponent],
@@ -18,6 +20,6 @@ import { usersRoute } from './users.routing';
     DataTableModule,
     RouterModule.forChild(usersRoute)
   ],
-  providers: [UserProvider]
+  providers: [UserProvider, UsersPProvider, UsersInteractor]
 })
 export class UsersModule { }
