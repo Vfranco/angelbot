@@ -8,7 +8,7 @@ export interface UserDto {
   statusName?: string;
   statusId?: number;
   roleId?: number;
-  roleNname?: string;
+  roleName?: string;
   companyId?: string;
   companyName?: string;
   token?: string;

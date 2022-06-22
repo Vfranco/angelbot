@@ -5,6 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { localstorageProvider } from './domain/repository/localstorage.provider';
 import { authInterceptorProvider } from '@core/services/interceptor.service';
+import { errorInterceptorProvider } from '@core/services/error.interceptor.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,7 @@ import { authInterceptorProvider } from '@core/services/interceptor.service';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [localstorageProvider, authInterceptorProvider],
+  providers: [localstorageProvider, authInterceptorProvider, errorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,12 +7,11 @@ import { IUserRepository } from "@domain/users/user.repository";
 import { HttpErrorResponse, HttpResponse, HttpStatusCode } from "@angular/common/http";
 import { IResponseBodyDto } from "@domain/http/response.body.dto";
 import Swal, { SweetAlertResult } from "sweetalert2";
-import { userChangePasswordSuccess, userCreatedUser, userEdit, userWarning } from "@core/constants/sweetalert.config";
+import { ErrorUsersFilter, userChangePasswordSuccess, userCreatedUser, userEdit, userWarning } from "@core/constants/sweetalert.config";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import swal from 'sweetalert2';
 import { UserDto } from "@domain/users/user.dto";
 import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
-import { RequestBodyDto } from "@domain/http/request.body.dto";
 import { FormGroup } from "@angular/forms";
 import { IUsersField } from "@core/validators/usersform.validator";
 
@@ -33,11 +32,12 @@ export class UsersInteractor implements IUsersPresenterInput {
 
   fetchUserData(userRequest: IFilterRequestBody): void {
     this.userService.readAll(userRequest).subscribe(
-      (response: HttpResponse<IResponseBodyDto>) => this._view.userData = response.body.list
+      (response: HttpResponse<IResponseBodyDto>) => this._view.userData = response.body.list,
+      (error: HttpErrorResponse) => Swal.fire(ErrorUsersFilter)
     );
   }
 
-  createUserData(formUser:IUsersField): void {
+  createUserData(formUser: IUsersField): void {
     this.userService.createUser(formUser).subscribe((response: HttpResponse<any>) => {
       if (response.status === HttpStatusCode.Created) {
         this._view.modalCreateAndEditUsers.closeModal();
@@ -50,7 +50,7 @@ export class UsersInteractor implements IUsersPresenterInput {
     });
   }
 
-  editUserData(formUser:IUsersField): void {
+  editUserData(formUser: IUsersField): void {
     this._view.formCreateUserData.get('statusId').setValue(RequestAction.update);
     this.userService.updateUser(formUser).subscribe((response: HttpResponse<any>) => {
       if (response.status === HttpStatusCode.NoContent) {
@@ -87,7 +87,7 @@ export class UsersInteractor implements IUsersPresenterInput {
     this._view.formChangeUserPassword.patchValue(user);
   }
 
-  changeUserPassword(formChangePassword:FormGroup): void {
+  changeUserPassword(formChangePassword: FormGroup): void {
     this.userService.changePassword(this._view.userDtoData.id, formChangePassword.value).subscribe(response => {
       if (response.status === HttpStatusCode.NoContent) {
         this._view.modalChangePassword.closeModal();

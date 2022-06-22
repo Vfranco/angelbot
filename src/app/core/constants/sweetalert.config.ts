@@ -157,3 +157,11 @@ export const licenseDeleted: SweetAlertOptions = {
   cancelButtonColor: '#d33',
   confirmButtonText: 'OK',
 };
+
+export const ErrorUsersFilter: SweetAlertOptions = {
+  title: 'Ha Ocurrido Un Error !',
+  text: 'No se pudo realizar el filtro',
+  icon: 'warning',
+  confirmButtonColor: '#3085d6',
+  confirmButtonText: 'OK',
+};
