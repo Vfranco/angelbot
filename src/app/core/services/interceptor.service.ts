@@ -4,11 +4,14 @@ import { Navigation } from "@core/constants/navigataion.enum";
 import { ILocalStorageRepository } from "@domain/repository/localstorage.repository";
 import { UserDto } from "@domain/users/user.dto";
 import { Observable } from "rxjs";
+import { finalize } from "rxjs/operators";
+import { UtilsService } from "./utils.service";
 
 @Injectable()
 export class HttpConfigService implements HttpInterceptor {
 
-  constructor(@Inject('localstorageRepository') private localStorage: ILocalStorageRepository) { }
+  constructor(@Inject('localstorageRepository') private localStorage: ILocalStorageRepository,
+  private _utils: UtilsService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const getToken: UserDto = this.localStorage.getItem(Navigation.userSession);
@@ -19,10 +22,12 @@ export class HttpConfigService implements HttpInterceptor {
         setHeaders: {
           authorization: `Bearer ${getToken.token}`
         }
-      })
+      });
+
+      this._utils._requestOnAction.next(true);
     }
 
-    return next.handle(request);
+    return next.handle(request).pipe(finalize(() => this._utils._requestOnAction.next(false)));
   }
 }
 

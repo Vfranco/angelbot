@@ -1,14 +1,14 @@
 import { ILicensesPresenterInput } from './licenses.presenter.input';
-import { ICompaniesInteractorOutput } from '../../companies/interactor/companies.interactor.output';
 import { LicensesInteractor } from '../interactor/licenses.interactor';
 import { ILicensesPresenterOutput } from './licenses.presenter.output';
 import { DeleteLicense, GetLicense } from '@domain/licenses/licenses.dto';
 import { Injectable } from '@angular/core';
 import { IFilterRequestBody } from '@domain/http/filter.request.body.interface';
 import { FormGroup } from '@angular/forms';
+import { ILicensesInteractorOutput } from '../interactor/licenses.interactor.output';
 
 @Injectable()
-export class LicensesPresenter implements ILicensesPresenterInput, ICompaniesInteractorOutput {
+export class LicensesPresenter implements ILicensesPresenterInput, ILicensesInteractorOutput {
   private _view: ILicensesPresenterOutput;
 
   constructor(private _interactor: LicensesInteractor) {

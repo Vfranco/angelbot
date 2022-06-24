@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from "@angular/common/http";
 import { FormGroup } from "@angular/forms";
-import { GetCompanie } from "@domain/companies/companie.dto";
+import { CompaniesDto, GetCompanie } from "@domain/companies/companie.dto";
 import { IModalComponent } from "@domain/companies/IModalComponent";
 import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
 
@@ -13,5 +13,6 @@ export interface ICompaniesPresenterOutput {
   isEditCompanie: boolean;
   companieErrorService: HttpErrorResponse;
   showErrorCompanieService: boolean;
+  showCompanieRecords(records: CompaniesDto[], pages: number, rows: number): void;
   fetchData(): void;
 }

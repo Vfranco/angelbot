@@ -2,16 +2,18 @@ import { Inject, Injectable } from "@angular/core";
 import swal, { SweetAlertResult } from 'sweetalert2';
 import { DeleteCompanie, GetCompanie } from "@domain/companies/companie.dto";
 import { ICompaniesPresenterInput } from '../presenter/companies.presenter.input';
-import { companieCreated, companieDeleted, companieUpdated, companieWarning } from "@core/constants/sweetalert.config";
+import { companieCreated, companieDeleted, companieUpdated, companieWarning, ErrorFilter } from "@core/constants/sweetalert.config";
 import { RepositoryProvider } from "@core/constants/Repository.enum";
 import { ICompaniesRepository } from "@domain/companies/companie.repository";
 import { RequestAction } from "@core/constants/requestactions.enum";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { ICompaniesPresenterOutput } from '../presenter/companies.presenter.output';
 import { ICompaniesInteractorOutput } from './companies.interactor.output';
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { FormGroup } from "@angular/forms";
 import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
+import Swal from "sweetalert2";
+import { IResponseBodyDto } from "@domain/http/response.body.dto";
 
 @Injectable()
 export class CompaniesInteractor implements ICompaniesPresenterInput {
@@ -29,7 +31,10 @@ export class CompaniesInteractor implements ICompaniesPresenterInput {
   }
 
   fetchData(requestBody: IFilterRequestBody): void {
-    this.companieService.readAll(requestBody).subscribe(response => this._view.companieData = response.body.list);
+    this.companieService.readAll(requestBody).subscribe(
+      (response: HttpResponse<IResponseBodyDto>) => this._presenter.companyList(response.body.list, response.body.pages, response.body.records),
+      (error: HttpErrorResponse) => Swal.fire(ErrorFilter)
+    );
   }
 
   createCompanie(formCompanie:FormGroup): void {

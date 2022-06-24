@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class UtilsService {
-
+  
   private readonly FILE_NAME_PROPERTY: string = 'fileName';
+  public _requestOnAction = new BehaviorSubject<boolean>(false);
 
   isEmptyOrNull(value: any): boolean {
-    return true;
+    return (value === undefined || value === null);
   }
 
   isDefined(value: any): boolean {
@@ -14,7 +16,10 @@ export class UtilsService {
   }
 
   toFormData(objectForm: object, file?: Event): any {
-    let formData = new FormData();
+    const formData = new FormData();
+
+    if(!file)
+      delete objectForm[this.FILE_NAME_PROPERTY];
 
     Object.keys(objectForm).forEach(key => {
       (key.match(this.FILE_NAME_PROPERTY)?.length > 0) ?
@@ -26,15 +31,34 @@ export class UtilsService {
     return formData;
   }
 
+  getImageResult(event: Event): Promise<string | ArrayBuffer> {
+    return new Promise((resolve, reject) => {
+      let selectedFile = (event.target as HTMLInputElement).files?.item(0);
+
+      if (!selectedFile)
+        reject();
+
+      let fileReader = new FileReader();
+
+      fileReader.readAsDataURL(selectedFile);
+      fileReader.onload = () => resolve(fileReader.result);
+    });
+  }
+
   private setFileValue(event: Event): FileList {
-    const element = event.currentTarget as HTMLInputElement;
-    let file: FileList | null = element.files;
+    const element = event?.currentTarget as HTMLInputElement;
+    let file: FileList | null = element?.files;
 
     return file;
   }
 
   setFileName(event: Event): string {
     return this.setFileValue(event)[0].name;
+  }
+
+  resetFileValue(event: Event): void {
+    const element = event?.target as HTMLInputElement;
+    element.files = null;
   }
 
   private setFirstLetterUppercase(word: string): string {

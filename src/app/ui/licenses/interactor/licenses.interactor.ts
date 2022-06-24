@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from "@angular/common/http";
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { HttpStatusCode } from "@core/constants/httpstatuscode.enum";
 import { RepositoryProvider } from "@core/constants/Repository.enum";
@@ -13,6 +13,7 @@ import { ILicensesInteractorOutput } from './licenses.interactor.output';
 import swal from 'sweetalert2';
 import { IFilterRequestBody } from "@domain/http/filter.request.body.interface";
 import { FormGroup } from "@angular/forms";
+import { IResponseBodyDto } from "@domain/http/response.body.dto";
 
 
 @Injectable()
@@ -31,7 +32,9 @@ export class LicensesInteractor implements ILicensesPresenterInput {
   }
 
   fetchData(requestBody: IFilterRequestBody): void {
-    this.licenseService.readAll(requestBody).subscribe((response) => (this._view.licenseData = response.body.list));
+    this.licenseService.readAll(requestBody).subscribe(
+      (response: HttpResponse<IResponseBodyDto>) => (this._view.licenseData = response.body.list)
+    );
   }
 
   createLicense(formLicense: FormGroup): void {
